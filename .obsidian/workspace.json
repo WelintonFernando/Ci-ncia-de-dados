@@ -8,20 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "96ac409316e2a579",
+            "id": "e235392b2b072948",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00 - Índice Ciência de Dados.md",
+                "file": "Exercícios de Interpretação de Gráficos e Modelos.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00 - Índice Ciência de Dados"
+              "title": "Exercícios de Interpretação de Gráficos e Modelos"
+            }
+          },
+          {
+            "id": "25af2fe2cecd9c40",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "REVISÃO.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "REVISÃO"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "9c447f275d38d17c",
@@ -171,7 +187,17 @@
             }
           },
           {
-            "id": "1fc279f7543b0bac",
+            "id": "b989fbf259dd0e91",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "git-view"
+            }
+          },
+          {
+            "id": "2a500e822b44f92c",
             "type": "leaf",
             "state": {
               "type": "agent-client-chat-view",
@@ -181,19 +207,9 @@
               "icon": "bot-message-square",
               "title": "New session"
             }
-          },
-          {
-            "id": "b989fbf259dd0e91",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -210,15 +226,30 @@
       "command-palette:Abrir paleta de comandos": false,
       "bases:Criar nova base": false,
       "agent-client:Open agent client": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obsidian-checklist-plugin:Open Checklist": false
     }
   },
-  "active": "96ac409316e2a579",
+  "active": "25af2fe2cecd9c40",
   "lastOpenFiles": [
+    "Exercícios de Interpretação de Gráficos e Modelos.md",
+    "Métricas de Avaliação de Modelos.md",
+    "Árvores de Decisão.md",
+    "Aprendizado de Máquina.md",
+    "Ambiente de Desenvolvimento Jupyter.md",
+    "Acurácia.md",
+    "00 - Índice Ciência de Dados.md",
+    "Regressão Linear.md",
+    "Material/CAP 1 - Conceitos/CID_1.1_Introducao.pdf",
+    "Resoluções e Gabarito Comentado - Exercícios de Gráficos.md",
+    "Guia de Interpretação e Leitura de Gráficos.md",
+    "REVISÃO.md",
+    "Fundamentos de Ciência de Dados.md",
+    "Pré-Processamento e Engenharia de Atributos.md",
+    "Regressão Logística.md",
     "Entropia.md",
     "Índice Gini.md",
     "Data Frames.md",
-    "Aprendizado de Máquina.md",
     "Especificidade.md",
     "AUC.md",
     "Curva ROC.md",
@@ -228,19 +259,7 @@
     "Precisão.md",
     "Visualização de Dados com Plotly.md",
     "Business Intelligence e Análise de Negócios.md",
-    "00 - Índice Ciência de Dados.md",
     "check_links.py",
-    "Acurácia.md",
-    "Métricas de Avaliação de Modelos.md",
-    "Árvores de Decisão.md",
-    "Regressão Logística.md",
-    "Regressão Linear.md",
-    "Pré-Processamento e Engenharia de Atributos.md",
-    "Extração e Tratamento de Dados (ETL).md",
-    "Big Data e Computação Distribuída.md",
-    "Fundamentos de Ciência de Dados.md",
-    "Ambiente de Desenvolvimento Jupyter.md",
-    "Introdução ao R.md",
     "Material/CAP 3 - Análise de dados/CID_Plano_Ensino.pdf",
     "Material/CAP 3 - Análise de dados/CDAD_Plano_Aulas_2026B.pdf",
     "Material/CAP 3 - Análise de dados/wine_quality.zip",
@@ -248,7 +267,6 @@
     "Material/CAP 3 - Análise de dados/wine_quality.iM6pr05v.pdf.part",
     "Material/CAP 3 - Análise de dados/wine_quality.pdf",
     "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.t3oEIiJV.ipynb.part",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.ipynb",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality.ALu7sGue.ipynb.part"
+    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.ipynb"
   ]
 }

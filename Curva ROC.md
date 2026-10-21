@@ -30,18 +30,44 @@ Entretanto, avaliar um algoritmo baseado em um único limiar arbitrário mascara
 
 A curva é traçada em um plano cartesiano unitário $[0, 1] \times [0, 1]$:
 
-```
-    TPR (Recall / Sensibilidade)
-    1.0 +--------------------+ (Ponto Ideal: 0, 1)
-        |                 .-'|
-        |              .-'   |      Curva do Modelo Preditivo
-        |           .-'      |
-        |        .-'         |
-        |     .-'            |
-        |  .-'               |
-        |.'                  |      Linha Diagonal: Classificador Aleatório (y = x)
-    0.0 +--------------------+
-       0.0                  1.0     FPR (1 - Especificidade / Alarmes Falsos)
+```plotly
+data:
+  - x: [0.0, 0.02, 0.05, 0.10, 0.15, 0.25, 0.40, 0.60, 0.80, 1.0]
+    y: [0.0, 0.50, 0.72, 0.83, 0.89, 0.94, 0.97, 0.985, 0.995, 1.0]
+    type: scatter
+    mode: lines+markers
+    name: 'Modelo Preditivo (AUC = 0.92)'
+    line:
+      color: '#1f77b4'
+      width: 3
+    fill: tozeroy
+    fillcolor: 'rgba(31, 119, 180, 0.15)'
+  - x: [0.0, 1.0]
+    y: [0.0, 1.0]
+    type: scatter
+    mode: lines
+    name: 'Aleatório / Moeda (AUC = 0.50)'
+    line:
+      color: '#7f7f7f'
+      dash: dash
+      width: 2
+  - x: [0.0]
+    y: [1.0]
+    type: scatter
+    mode: markers
+    name: 'Classificador Perfeito (0, 1)'
+    marker:
+      color: '#2ca02c'
+      size: 11
+layout:
+  title: 'Curva ROC: Taxa de Acerto vs Taxa de Alarme Falso'
+  xaxis:
+    title: 'Taxa de Falsos Positivos (FPR = 1 - Especificidade)'
+    range: [-0.02, 1.02]
+  yaxis:
+    title: 'Taxa de Verdadeiros Positivos (TPR = Sensibilidade / Recall)'
+    range: [-0.02, 1.05]
+  hovermode: 'closest'
 ```
 
 - **Eixo Y (Ordenadas) — Taxa de Verdadeiros Positivos ($\text{TPR}$)**:

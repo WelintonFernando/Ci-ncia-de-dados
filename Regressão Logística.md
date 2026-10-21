@@ -38,16 +38,41 @@ Para mapear qualquer combinação linear real $z \in (-\infty, +\infty)$ no espa
 
 $$p(z) = \sigma(z) = \frac{1}{1 + e^{-z}} = \frac{e^z}{1 + e^z}$$
 
-```
-   p(z)
-    1.0 +------------------------------------------+---+
-        |                                       ...|   |
-        |                                    .-'       |
-    0.5 |------------------------+---------+'---------|   Limiar de Corte (0.5)
-        |                      .-'                     |
-        |                   .-'                        |
-    0.0 +---+------------------------------------------+
-           -4                 0                       +4     z (combinação linear)
+```plotly
+data:
+  - x: [-6, -5, -4, -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6]
+    y: [0.002, 0.007, 0.018, 0.047, 0.076, 0.119, 0.182, 0.269, 0.378, 0.500, 0.622, 0.731, 0.818, 0.881, 0.924, 0.953, 0.982, 0.993, 0.998]
+    type: scatter
+    mode: lines
+    name: 'Curva Sigmoide σ(z)'
+    line:
+      color: '#1f77b4'
+      width: 3
+  - x: [-6, 6]
+    y: [0.5, 0.5]
+    type: scatter
+    mode: lines
+    name: 'Limiar de Corte (p = 0.5)'
+    line:
+      color: '#d62728'
+      dash: dash
+      width: 2
+  - x: [0]
+    y: [0.5]
+    type: scatter
+    mode: markers
+    name: 'Ponto de Inflexão (0, 0.5)'
+    marker:
+      color: '#d62728'
+      size: 9
+layout:
+  title: 'Função Logística: Mapeamento de z em Probabilidade'
+  xaxis:
+    title: 'Combinação Linear: z = β₀ + β₁X₁ + ...'
+  yaxis:
+    title: 'Probabilidade Estimada: p(z)'
+    range: [-0.05, 1.05]
+  hovermode: 'closest'
 ```
 
 Onde a combinação linear dos preditores é dada por:

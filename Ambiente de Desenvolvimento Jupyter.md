@@ -23,26 +23,14 @@ O nome **Jupyter** é uma homenagem às três linguagens pioneiras de computaç�
 
 A arquitetura do Jupyter opera sob o padrão **cliente-servidor**:
 
-```
-+-------------------------------------------------------------+
-|                Navegador Web (Interface Cliente)             |
-|   - Exibe células de código, Markdown e saídas visuais      |
-|   - Envia requisições de execução via WebSocket / JSON       |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|               Servidor Web Jupyter (Local ou Nuvem)         |
-|   - Gerencia sessões de cadernos (.ipynb)                   |
-|   - Comunica-se com o motor computacional                   |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|                Kernel (Motor Computacional Ativo)           |
-|   - Executa instruções de código (ex: R, Python, Julia)     |
-|   - Mantém variáveis e estado em memória RAM                |
-+-------------------------------------------------------------+
+```mermaid
+flowchart TD
+    CLI["🌐 <b>Navegador Web</b> (Interface Cliente)<br>• Exibe células de código, Markdown e saídas visuais<br>• Envia requisições de execução via WebSocket / JSON"]
+    SRV["⚙️ <b>Servidor Web Jupyter</b> (Local ou Servidor Remoto)<br>• Gerencia sessões de cadernos (.ipynb)<br>• Comunica-se com o motor computacional"]
+    KRN["🚀 <b>Kernel</b> (Motor Computacional Ativo: R / Python)<br>• Executa instruções de código<br>• Mantém variáveis e estado em memória RAM"]
+
+    CLI <-->|WebSocket / JSON| SRV
+    SRV <-->|ZeroMQ| KRN
 ```
 
 Os arquivos de caderno possuem a extensão `.ipynb` e são serializados internamente no formato padrão **JSON**, estruturados em uma lista ordenada de nós chamados **células**.

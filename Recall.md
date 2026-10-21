@@ -42,18 +42,14 @@ Onde:
 
 O Recall deve ser a métrica otimizada prioritariamente sempre que as consequências de um **Falso Negativo ($FN$)** forem potencialmente desastrosas, letais ou financeiramente irreparáveis.
 
-```
-                  CUSTO DE ERRO TIPO II (FALSO NEGATIVO) É CRÍTICO
-                                         |
-                                         v
-                         MAXIMIZAÇÃO OBRIGATÓRIA DO RECALL
-                                         |
-               +-------------------------+-------------------------+
-               |                                                   |
-               v                                                   v
-      DIAGNÓSTICO MÉDICO                                DETECÇÃO DE FRAUDES
-Paciente doente liberado sem tratamento         Transação criminosa concluída
-  -> Risco imediato de morte!                     -> Prejuízo financeiro direto!
+```mermaid
+flowchart TD
+    C["⚠️ <b>CUSTO DE FALSO NEGATIVO (FN) É CRÍTICO</b>"]
+    M["🎯 <b>MAXIMIZAÇÃO OBRIGATÓRIA DO RECALL</b><br>(Limiar de Decisão Reduzido: θ ↓)"]
+    C --> M
+
+    M --> MED["🏥 <b>Diagnóstico Médico / Câncer</b><br>Paciente doente liberado sem tratamento<br>❌ <i>Risco imediato de morte</i>"]
+    M --> FRD["💳 <b>Detecção de Fraudes / Segurança</b><br>Transação criminosa aprovada<br>❌ <i>Prejuízo financeiro direto</i>"]
 ```
 
 ### Casos de Aplicação Vital:

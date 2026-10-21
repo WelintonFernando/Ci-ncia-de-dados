@@ -22,19 +22,10 @@ Todas as métricas clássicas de desempenho para tarefas de classificação — 
 
 Para um problema de classificação binária com classes $1$ (Positivo) e $0$ (Negativo), a matriz estrutura-se da seguinte forma:
 
-```
-                            CLASSE REAL (OBSERVADA)
-                         Positivo (1)         Negativo (0)
-                     +--------------------+--------------------+
-        Positivo (1) |   VERDADEIRO       |      FALSO         |
-                     |   POSITIVO (TP)    |  POSITIVO (FP)     |
-CLASSE               |     Acerto         | Erro Tipo I        |
-PREDITA              +--------------------+--------------------+
-        Negativo (0) |      FALSO         |   VERDADEIRO       |
-                     |  NEGATIVO (FN)     |  NEGATIVO (TN)     |
-                     | Erro Tipo II       |     Acerto         |
-                     +--------------------+--------------------+
-```
+| | **Real: Positivo ($Y = 1$)** | **Real: Negativo ($Y = 0$)** |
+| :--- | :---: | :---: |
+| **Predito: Positivo ($\hat{Y} = 1$)** | **Verdadeiro Positivo (TP)**<br>*(Acerto)* | **Falso Positivo (FP)**<br>*(Erro do Tipo I / Alarme Falso)* |
+| **Predito: Negativo ($\hat{Y} = 0$)** | **Falso Negativo (FN)**<br>*(Erro do Tipo II / Omissão)* | **Verdadeiro Negativo (TN)**<br>*(Acerto)* |
 
 ### 1.1. Os Quatro Quadrantes Elementares
 

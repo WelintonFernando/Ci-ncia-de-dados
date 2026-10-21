@@ -23,13 +23,13 @@ Estudos consolidados da indústria apontam que os profissionais de dados dedicam
 
 ## 1. O Fluxo de Trabalho do ETL
 
-```
-+------------------+      +-------------------------+      +--------------------+
-|  1. EXTRAÇÃO     |      |    2. TRANSFORMAÇÃO     |      |     3. CARGA       |
-|  (Extract)       | ---> |    (Transform)          | ---> |     (Load)         |
-| Fontes Brutas,   |      | Saneamento, Tipagem,    |      | Armazenamento em   |
-| CSV, Logs, ZIP   |      | Regex, NA, Outliers     |      | .RData, Data Lake  |
-+------------------+      +-------------------------+      +--------------------+
+```mermaid
+flowchart LR
+    E["<b>1. EXTRAÇÃO</b> (Extract)<br>Fontes Brutas, CSV, Logs, ZIP"]
+    T["<b>2. TRANSFORMAÇÃO</b> (Transform)<br>Saneamento, Tipagem, Regex, NAs, Outliers"]
+    L["<b>3. CARGA</b> (Load)<br>Armazenamento em .RData, Data Lake, SQL"]
+
+    E --> T --> L
 ```
 
 ---

@@ -93,27 +93,15 @@ Em vez de trafegar petabytes de dados pela rede até o programa central (o que s
 
 ### 4.2. As Fases do Fluxo MapReduce
 
-```
-[Dados de Entrada Particionados]
-               |
-               v
-       +---------------+
-       |   Fase MAP    |  --> Executada em paralelo em cada nó
-       +---------------+      Transforma registros em pares (chave, valor)
-               |
-               v
-       +---------------+
-       | SHUFFLE/SORT  |  --> Embaralha, agrupa e unifica todos os valores
-       |  (Unificação) |      que possuem a mesma chave
-       +---------------+
-               |
-               v
-       +---------------+
-       |  Fase REDUCE  |  --> Consolida as listas de valores de cada chave
-       +---------------+      produzindo a saída agregada final
-               |
-               v
-     [Resultado Consolidado]
+```mermaid
+flowchart TD
+    IN["📂 Dados de Entrada Particionados (HDFS)"]
+    MAP["⚙️ <b>Fase MAP</b> (Execução paralela local)<br>Transforma registros em pares (chave, valor)"]
+    SHUF["🔀 <b>Fase SHUFFLE & SORT</b> (Rede)<br>Embaralha, agrupa e unifica valores com mesma chave"]
+    RED["📊 <b>Fase REDUCE</b> (Agregação)<br>Consolida valores de cada chave em saída final"]
+    OUT["💾 <b>Resultado Consolidado</b>"]
+
+    IN --> MAP --> SHUF --> RED --> OUT
 ```
 
 1. **Map (Mapeamento)**: Cada nó lê sua fatia de dados brutos e aplica uma função que gera pares chave-valor intermediários:

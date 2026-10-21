@@ -23,17 +23,13 @@ Historicamente, o tratamento de dados era conduzido prioritariamente por estatí
 
 Para atuar com rigor em Ciência de Dados, é indispensável compreender as distinções ontológicas entre **Dado**, **Informação**, **Conhecimento** e **Sabedoria**:
 
-```
-                 / \
-                /   \
-               /  S  \       Sabedoria (Por que fazer?)
-              /-------\
-             /    K    \      Conhecimento (Como fazer? Modelagem)
-            /-----------\
-           /      I      \     Informação (O que é? Significado)
-          /---------------\
-         /        D        \    Dado (Fato bruto quantificável)
-        +-------------------+
+```mermaid
+flowchart TD
+    S["🧠 SABEDORIA (Wisdom)<br>Por que fazer? Decisão Estratégica"]
+    K["💡 CONHECIMENTO (Knowledge)<br>Como fazer? Modelagem e Padrões"]
+    I["📄 INFORMAÇÃO (Information)<br>O que é? Dados Estruturados e Contexto"]
+    D["💾 DADO (Data)<br>Fato Bruto Quantificável"]
+    S --> K --> I --> D
 ```
 
 ### 1.1. Dado (*Data*)
@@ -76,21 +72,35 @@ A execução bem-sucedida de iniciativas de dados nas organizações modernas de
 
 A maturidade analítica de uma organização progride ao longo de quatro dimensões de complexidade e valor gerado:
 
-```
-        Complexidade
-             ^
-             |                                    [PRESCRITIVA]
-             |                                 Como otimizar a ação?
-             |
-             |                         [PREDITIVA]
-             |                     O que vai acontecer?
-             |
-             |                 [DIAGNÓSTICA]
-             |             Por que aconteceu?
-             |
-             |     [DESCRITIVA]
-             |   O que aconteceu?
-             +----------------------------------------------------> Valor Gerado
+```plotly
+data:
+  - x: [1, 2, 3, 4]
+    y: [1, 2, 3, 4]
+    text: ['1. Descritiva: O que aconteceu?', '2. Diagnóstica: Por que aconteceu?', '3. Preditiva: O que vai acontecer?', '4. Prescritiva: Como agir?']
+    textposition: 'top left'
+    mode: lines+markers+text
+    type: scatter
+    name: 'Maturidade Analítica'
+    marker:
+      color: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+      size: 14
+    line:
+      color: '#333333'
+      width: 2.5
+      dash: dash
+layout:
+  title: 'Graus de Maturidade Analítica: Complexidade vs Valor Gerado'
+  xaxis:
+    title: 'Valor Agregado ao Negócio'
+    tickvals: [1, 2, 3, 4]
+    ticktext: ['Baixo', 'Moderado', 'Elevado', 'Estratégico / Máximo']
+    range: [0.5, 4.5]
+  yaxis:
+    title: 'Complexidade Metodológica e Tecnológica'
+    tickvals: [1, 2, 3, 4]
+    ticktext: ['Baixa', 'Média', 'Alta', 'Avançada']
+    range: [0.5, 4.5]
+  hovermode: 'closest'
 ```
 
 ### 3.1. Análise Descritiva (*Descriptive Analytics*)

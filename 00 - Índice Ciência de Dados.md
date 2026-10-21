@@ -145,3 +145,11 @@ Para um estudo estruturado e progressivo de todo o conteúdo, recomenda-se a seg
    - Meça a generalização com matrizes de confusão e curvas ROC em [[Métricas de Avaliação de Modelos]].
    - Crie painéis visuais ricos e interativos em [[Visualização de Dados com Plotly]].
    - Conecte seus insights técnicos às metas estratégicas organizacionais em [[Business Intelligence e Análise de Negócios]].
+
+---
+
+### 🎓 6. Preparação para Avaliações e Interpretação Gráfica
+- **[[REVISÃO]]**: *Apontamentos pontuais da aula de revisão (foco em resíduos, gráficos, MinMax, One-Hot Encoding e logística).*
+- **[[Guia de Interpretação e Leitura de Gráficos]]**: *Manual visual exaustivo contendo de 2 a 6 exemplos interativos de cada tipo de gráfico (Box-plots, Dispersão, Pairplots, Heatmaps de Correlação -1 a 1, Curvas ROC, Sigmoides, Resíduos e Treino vs Teste).*
+- **[[Exercícios de Interpretação de Gráficos e Modelos]]**: *Simulado completo com 45 exercícios divididos em Nível Fundamental, Intermediário e Avançado, com seção dedicada de dicas.*
+- **[[Resoluções e Gabarito Comentado - Exercícios de Gráficos]]**: *Resoluções analíticas completas passo a passo das 45 questões, com fundamentações teóricas para prova.*

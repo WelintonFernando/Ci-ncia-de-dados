@@ -3,6 +3,7 @@ aliases:
   - Visualização de Dados
   - Plotly
   - Visualização com Plotly
+  - Charts View
   - Gráficos Interativos
 tags:
   - visualizacao
@@ -211,3 +212,50 @@ ggplotly(g)
 ```
 
 Essa versatilidade fecha o ciclo entre a exploração interativa de modelos no laboratório e a entrega de painéis executivos em [[Business Intelligence e Análise de Negócios]].
+
+---
+
+## 5. Como Funciona o Plugin Charts View (Ant Design Charts)
+
+Além do Plotly, o plugin **Charts View** (`obsidian-chartsview-plugin`) oferece visualizações elegantes baseadas na biblioteca *Ant Design Charts* / G2Plot. A estrutura utiliza a tag `chartsview` em formato YAML:
+
+```chartsview
+#-----------------#
+#- chart type    -#
+#-----------------#
+type: Column
+
+#-----------------#
+#- chart data    -#
+#-----------------#
+data:
+  - metrica: "Acurácia"
+    valor: 0.95
+    modelo: "Regressão Logística"
+  - metrica: "Precisão"
+    valor: 0.98
+    modelo: "Regressão Logística"
+  - metrica: "Recall"
+    valor: 0.96
+    modelo: "Regressão Logística"
+  - metrica: "F1-Score"
+    valor: 0.97
+    modelo: "Regressão Logística"
+
+#-----------------#
+#- chart options -#
+#-----------------#
+options:
+  xField: "metrica"
+  yField: "valor"
+  seriesField: "modelo"
+  color: "#1f77b4"
+  meta:
+    valor:
+      min: 0
+      max: 1
+```
+
+- **`type`**: Tipo do componente (ex: `Line`, `Column`, `Bar`, `Pie`, `Area`, `Scatter`).
+- **`data`**: Lista de objetos com os pares atributo-valor.
+- **`options`**: Mapeamento dos campos (`xField`, `yField`, `seriesField`), formatações, paletas e escalas.

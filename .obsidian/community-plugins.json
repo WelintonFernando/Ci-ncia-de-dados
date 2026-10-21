@@ -1,5 +1,7 @@
 [
   "agent-client",
   "obsidian-git",
-  "obsidian-plotly"
+  "obsidian-plotly",
+  "obsidian-checklist-plugin",
+  "obsidian-chartsview-plugin"
 ]

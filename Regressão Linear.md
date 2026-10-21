@@ -172,6 +172,43 @@ plot(fitted(reg1), residuals(reg1), main = "Resíduos vs Ajustados (Modelo Linea
 abline(h = 0, col = "red", lty = 2)
 ```
 
+```plotly
+data:
+  - x: [51.2, 53.0, 54.2, 56.0, 57.2, 59.0, 60.8, 62.0, 63.7, 64.9, 66.7, 67.9, 69.7, 70.9, 72.7]
+    y: [0.97, 0.08, 0.29, -0.20, 0.01, -0.28, -0.66, -0.45, -0.54, -0.33, -0.32, -0.01, 0.10, 0.61, 0.73]
+    type: scatter
+    mode: markers
+    name: 'Resíduos: Modelo Linear (Padrão Parabólico U)'
+    marker:
+      color: '#d62728'
+      size: 9
+  - x: [50, 74]
+    y: [0, 0]
+    type: scatter
+    mode: lines
+    name: 'Resíduo Nulo (Referência e = 0)'
+    line:
+      color: '#7f7f7f'
+      dash: dash
+      width: 2
+  - x: [51.2, 53.0, 56.0, 60.8, 64.9, 69.7, 72.7]
+    y: [0.97, 0.10, -0.20, -0.66, -0.33, 0.10, 0.73]
+    type: scatter
+    mode: lines
+    name: 'Tendência Parabólica do Erro'
+    line:
+      color: '#d62728'
+      dash: dot
+      width: 2
+layout:
+  title: 'Diagnóstico de Resíduos: Padrão Não Linear Detectado'
+  xaxis:
+    title: 'Valores Ajustados (ŷ - Peso Estimado)'
+  yaxis:
+    title: 'Resíduos (e = y - ŷ)'
+  hovermode: 'closest'
+```
+
 Essa curvatura nos resíduos é o diagnóstico definitivo de que a relação subjacente possui componente quadrático.
 
 #### Correção com Termo Polinomial

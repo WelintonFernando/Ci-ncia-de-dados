@@ -56,18 +56,15 @@ A maximização da Precisão torna-se o objetivo primordial sempre que o custo o
 
 Existe uma tensão matemática inversa e incontornável entre Precisão e [[Recall]]:
 
-```
-                 AUMENTO DO LIMIAR DE DECISÃO (Ex: Cutoff de 0.50 para 0.85)
-                                      |
-                     O Modelo torna-se conservador:
-                 Só dispara positivo quando tem certeza!
-                               /          \
-                              v            v
-                    Falsos Positivos (FP)     Falsos Negativos (FN)
-                       caem drasticamente        aumentam rapidamente
-                              |                           |
-                              v                           v
-                       PRECISÃO SOBE                RECALL DESPENCA
+```mermaid
+flowchart TD
+    CUT["📈 <b>AUMENTO DO LIMIAR DE DECISÃO</b> (ex: Cutoff de 0.50 para 0.85)<br>O modelo torna-se conservador: só classifica positivo sob máxima evidência"]
+    
+    CUT --> FP["Falsos Positivos (FP) caem a quase zero<br>⬇️ Quase sem alarmes falsos"]
+    CUT --> FN["Falsos Negativos (FN) aumentam rapidamente<br>⬆️ Muitos positivos passam despercebidos"]
+    
+    FP --> P["🎯 <b>PRECISÃO SOBE</b>"]
+    FN --> R["⚠️ <b>RECALL DESPENCA</b>"]
 ```
 
 - Para obter **alta precisão**, elevamos o limiar de corte ($\theta$) na [[Regressão Logística]]. O modelo reduz os alarmes falsos ($FP \to 0$), mas perde casos positivos sutis.

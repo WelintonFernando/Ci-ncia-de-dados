@@ -25,21 +25,19 @@ No ecossistema de [[Fundamentos de Ciência de Dados]], o Machine Learning repre
 
 A disciplina divide-se em três modalidades principais, de acordo com a natureza dos dados e o tipo de supervisão disponível:
 
-```
-                          PARADIGMAS DO APRENDIZADO DE MÁQUINA
-                                            |
-        +-----------------------------------+-----------------------------------+
-        |                                   |                                   |
-        v                                   v                                   v
-  SUPERVISIONADO                    NÃO SUPERVISIONADO                     REFORÇO
-(Dados com Rótulo Y)             (Dados Sem Rótulo / Padrões)      (Agente, Ações & Recompensas)
-  /              \                          |                                   |
- v                v                         v                                   v
-REGRESSÃO    CLASSIFICAÇÃO             AGRUPAMENTO                      OTIMIZAÇÃO DINÂMICA
-[[Regressão  [[Regressão              (K-Means, PCA,                    (Jogos, Robótica,
-  Linear]]     Logística]]             Regras de Associação)             Carros Autônomos)
-             [[Árvores de
-               Decisão]]
+```mermaid
+flowchart TD
+    ML["PARADIGMAS DO APRENDIZADO DE MÁQUINA"]
+    
+    ML --> SUP["SUPERVISIONADO<br>(Dados com Rótulo Y)"]
+    ML --> UNSUP["NÃO SUPERVISIONADO<br>(Sem Rótulo / Descoberta de Padrões)"]
+    ML --> REINF["REFORÇO<br>(Agente, Ambiente & Recompensa)"]
+
+    SUP --> REG["Regressão<br>([[Regressão Linear]])"]
+    SUP --> CLAS["Classificação<br>([[Regressão Logística]], [[Árvores de Decisão]])"]
+    
+    UNSUP --> CLUST["Agrupamento & Redução<br>(K-Means, PCA, Regras de Associação)"]
+    REINF --> OPT["Otimização Dinâmica<br>(Robótica, Jogos, Navegação)"]
 ```
 
 ### 1.1. Aprendizado Supervisionado (*Supervised Learning*)
@@ -72,42 +70,16 @@ Um agente autônomo interage ciclicamente com um ambiente dinâmico, executando 
 
 A construção de soluções robustas de Aprendizado de Máquina segue uma esteira metodológica bem estabelecida:
 
-```
-+-----------------------------------------------------------------------------------+
-| 1. INGESTÃO & ETL: Leitura de dados brutos e saneamento em [[Extração e Tratamento|
-|    de Dados (ETL)]]                                                               |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-| 2. PRÉ-PROCESSAMENTO: Normalização, Z-score e dummies em [[Pré-Processamento e   |
-|    Engenharia de Atributos]]                                                      |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-| 3. DIVISÃO DOS DADOS: Particionamento estrito em Treino, Validação e Teste        |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-| 4. TREINAMENTO: Ajuste de parâmetros de algoritmos ([[Regressão Linear]],         |
-|    [[Regressão Logística]], [[Árvores de Decisão]])                               |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-| 5. AVALIAÇÃO: Mensuração com [[Métricas de Avaliação de Modelos]]                 |
-|    ([[Matriz de Confusão]], [[Acurácia]], [[Precisão]], [[Recall]], [[F1-Score]],   |
-|    [[Curva ROC]] e [[AUC]])                                                       |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-| 6. ENTREGA: Comunicação visual executiva em [[Visualização de Dados com Plotly]] e|
-|    integração com metas estratégicas em [[Business Intelligence e Análise de      |
-|    Negócios]]                                                                     |
-+-----------------------------------------------------------------------------------+
+```mermaid
+flowchart TD
+    E1["1. INGESTÃO & ETL<br>Leitura de dados brutos e saneamento em [[Extração e Tratamento de Dados (ETL)]]"]
+    E2["2. PRÉ-PROCESSAMENTO<br>Normalização, Z-score e dummies em [[Pré-Processamento e Engenharia de Atributos]]"]
+    E3["3. DIVISÃO DOS DADOS<br>Particionamento estrito em Treino, Validação e Teste"]
+    E4["4. TREINAMENTO<br>Ajuste de parâmetros ([[Regressão Linear]], [[Regressão Logística]], [[Árvores de Decisão]])"]
+    E5["5. AVALIAÇÃO<br>Métricas de avaliação ([[Matriz de Confusão]], [[Acurácia]], [[Precisão]], [[Recall]], [[Curva ROC]])"]
+    E6["6. ENTREGA & VISUALIZAÇÃO<br>Comunicação visual interativa em [[Visualização de Dados com Plotly]] e valor de negócio"]
+
+    E1 --> E2 --> E3 --> E4 --> E5 --> E6
 ```
 
 ---

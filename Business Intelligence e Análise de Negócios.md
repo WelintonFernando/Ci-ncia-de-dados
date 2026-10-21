@@ -26,22 +26,6 @@ No ecossistema de [[Fundamentos de Ciência de Dados]], o BI representa a base d
 
 Embora ambas as disciplinas operem sobre dados para gerar valor, elas possuem horizontes temporais, escopos metodológicos e naturezas analíticas complementares:
 
-```
-+-------------------------------------------------------------------------------+
-|                       ESPECTRO ANALÍTICO ORGANIZACIONAL                       |
-+---------------------------------------+---------------------------------------+
-|    BUSINESS INTELLIGENCE (BI)         |       CIÊNCIA DE DADOS (DS)           |
-+---------------------------------------+---------------------------------------+
-| Foco: Passado e Presente              | Foco: Futuro e Otimização             |
-| Questão: "O que aconteceu e por quê?" | Questão: "O que vai acontecer a seguir?" |
-| Análise: Descritiva e Diagnóstica     | Análise: Preditiva e Prescritiva      |
-| Dados: Estruturados (SQL, ERP, CRM)   | Dados: Heterogêneos (Estruturados e   |
-|                                       |        Não Estruturados, Big Data)    |
-| Métodos: Agregações, OLAP, Dashboards | Métodos: Estatística, Machine Learning|
-| Usuários: Executivos e Gestores       | Usuários: Cientistas e Engenheiros    |
-+---------------------------------------+---------------------------------------+
-```
-
 | Critério Comparativo | Business Intelligence (BI) | Ciência de Dados (Data Science) |
 | :--- | :--- | :--- |
 | **Horizonte Temporal** | Retrospectivo: focado no histórico consolidado e no monitoramento de operações correntes. | Prospectivo: orientado à previsão de eventos futuros e automação prescritiva de decisões. |
@@ -101,20 +85,34 @@ Proposto por Robert Kaplan e David Norton, o **Balanced Scorecard** é uma metod
 
 Para viabilizar consultas analíticas velozes sem sobrecarregar os bancos de dados operacionais do dia a dia, a arquitetura clássica de BI estrutura-se em camadas:
 
-```
-[FONTES OPERACIONAIS]       [STAGING AREA]             [DATA WAREHOUSE]             [CAMADA ANALÍTICA]
-+-------------------+      +--------------+      +--------------------------+      +-------------------+
-| ERP (Vendas)      | ---> | Pipeline de  | ---> |   Data Warehouse Central | ---> | Painéis de BI     |
-| CRM (Clientes)    |      |    [[Extração|      |   (Modelo Multidimensional)  |      | Visualizações em  |
-| Bancos Transacionais|    |  e Tratamento|      |  - Tabelas de Fatos      |      | [[Visualização    |
-| (OLTP / SQL)      |      |     de Dados |      |  - Tabelas de Dimensões  |      |   de Dados com    |
-+-------------------+      |       (ETL)]]|      +--------------------------+      |     Plotly\|      |
-                           +--------------+                   |                    |      Plotly]]     |
-                                                              v                    +-------------------+
-                                                 +--------------------------+
-                                                 | Data Marts Departamentais|
-                                                 | (Finanças, Vendas, RH)   |
-                                                 +--------------------------+
+```mermaid
+flowchart LR
+    subgraph FONTES["1. Fontes Operacionais"]
+        ERP["ERP (Vendas)"]
+        CRM["CRM (Clientes)"]
+        OLTP["Bancos OLTP / SQL"]
+    end
+
+    subgraph STAGING["2. Staging Area"]
+        ETL["Pipeline ETL<br>Limpeza & Tipagem"]
+    end
+
+    subgraph STORAGE["3. Armazenamento Analítico"]
+        DW["Data Warehouse Central<br>(Fatos & Dimensões)"]
+        DM["Data Marts Departamentais<br>(Finanças, Vendas, RH)"]
+        DW --> DM
+    end
+
+    subgraph ANALYTICS["4. Camada Analítica"]
+        BI["Painéis de BI Executivos"]
+        PLOT["Visualizações Interativas Plotly"]
+    end
+
+    FONTES --> ETL
+    ETL --> DW
+    DW --> BI
+    DW --> PLOT
+    DM --> BI
 ```
 
 ### 3.1. Sistemas OLTP versus Sistemas OLAP

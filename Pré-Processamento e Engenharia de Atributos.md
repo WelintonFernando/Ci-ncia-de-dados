@@ -207,14 +207,12 @@ modelo_curvo <- lm(peso ~ altura + I(altura^2), data = dados_mulheres)
 
 Para validar a capacidade de generalização dos modelos e prevenir o sobreajuste (*overfitting*), o conjunto de dados deve ser dividido em conjuntos disjuntos antes de qualquer treinamento:
 
-```
-[CONJUNTO TOTAL DE DADOS (100%)]
-       |
-       +---> TREINO (60% - 70%): Utilizado para estimar os parâmetros beta / podas
-       |
-       +---> VALIDAÇÃO (15% - 20%): Utilizado para calibrar hiperparâmetros e corte
-       |
-       +---> TESTE (15% - 20%): Blindado; utilizado para apuração final das métricas
+```mermaid
+flowchart TD
+    D["📊 <b>CONJUNTO TOTAL DE DADOS (100%)</b>"]
+    D --> T["🏋️ <b>TREINO (60% - 70%)</b><br>Estimação dos coeficientes β, ajuste e crescimento das árvores"]
+    D --> V["⚖️ <b>VALIDAÇÃO (15% - 20%)</b><br>Calibração de hiperparâmetros e ajuste fino do limiar de corte θ"]
+    D --> E["🔒 <b>TESTE (15% - 20%)</b><br>Partição blindada avaliada apenas uma vez para métricas finais"]
 ```
 
 ### Implementação Reprodutível em R

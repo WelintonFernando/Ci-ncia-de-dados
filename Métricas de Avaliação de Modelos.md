@@ -33,17 +33,10 @@ Diferentes problemas de negócio impõem custos assimétricos para diferentes na
 
 A **Matriz de Confusão** é a tabela de contingência fundamental utilizada para inspecionar visualmente e quantificar as predições de um modelo de classificação binária confrontadas com os valores reais observados:
 
-```
-                          VALOR REAL (OBSERVADO)
-                       Classe 1 (Positivo)   Classe 0 (Negativo)
-                     +---------------------+---------------------+
- Classe 1 (Positivo) | Verdadeiro Positivo |    Falso Positivo   |
-                     |        (TP)         |   (FP - Erro Tipo I)|
-VALOR PREDITO        +---------------------+---------------------+
- Classe 0 (Negativo) |    Falso Negativo   | Verdadeiro Negativo |
-                     |  (FN - Erro Tipo II)|        (TN)         |
-                     +---------------------+---------------------+
-```
+| | **Real Positivo (1)** | **Real Negativo (0)** |
+| :--- | :---: | :---: |
+| **Predito Positivo (1)** | **Verdadeiro Positivo (TP)**<br>*(Acerto)* | **Falso Positivo (FP)**<br>*(Erro Tipo I / Alarme Falso)* |
+| **Predito Negativo (0)** | **Falso Negativo (FN)**<br>*(Erro Tipo II / Omissão)* | **Verdadeiro Negativo (TN)**<br>*(Acerto)* |
 
 ### 1.1. Os Quatro Quadrantes Elementares
 - **Verdadeiro Positivo ($TP$ — *True Positive*)**: A ocorrência real era da classe positiva ($Y = 1$) e o modelo predisse corretamente como positiva ($\hat{Y} = 1$). Exemplo: um empréstimo viável que foi devidamente aprovado.
@@ -57,14 +50,11 @@ VALOR PREDITO        +---------------------+---------------------+
 
 A partir das quatro contagens fundamentais ($TP, TN, FP, FN$), deriva-se um conjunto de indicadores matemáticos especializados:
 
-```
-                            +-------------------------+
-                            |   MÉTRICAS MATRICIAIS   |
-                            +-------------------------+
-                               /          |          \
-                              /           |           \
-                    ACURÁCIA          PRECISÃO          RECALL
-               (Proporção Global)  (No Alvo Predito)  (Captura Total)
+```mermaid
+flowchart TD
+    M["MÉTRICAS MATRICIAIS"] --> A["ACURÁCIA<br>(Proporção Global de Acertos)"]
+    M --> P["PRECISÃO<br>(Confiabilidade do Alvo Predito)"]
+    M --> R["RECALL<br>(Taxa de Captura do Alvo Real)"]
 ```
 
 ---
@@ -155,14 +145,10 @@ Na prática analítica, é virtualmente impossível maximizar a Precisão e o Re
   - Os alarmes falsos ($FP$) colapsam $\implies$ **A Precisão aumenta**;
   - Muitos positivos sutis passam despercebidos ($FN$ cresce) $\implies$ **O Recall despenca**.
 
-```
-    Recall Alto (Ex: Medicina / Fraude)      Precisão Alta (Ex: Filtro Anti-Spam)
-    Limiar Baixo: Não deixar passar nada!    Limiar Alto: Não cometer alarmes falsos!
-    +------------------------------------+   +------------------------------------+
-    | TP: Elevado        FP: Elevado     |   | TP: Moderado       FP: Quase Zero  |
-    | FN: Mínimo         TN: Reduzido    |   | FN: Elevado        TN: Máximo      |
-    +------------------------------------+   +------------------------------------+
-```
+| Cenário | Estratégia de Limiar | Impacto nos Erros | Prioridade Prática |
+| :--- | :--- | :--- | :--- |
+| **Alto Recall (Sensibilidade)** | **Limiar Baixo** ($\theta \downarrow$)<br>*"Não deixar passar nenhum positivo"* | $TP$ elevado, $FN$ mínimo<br>($FP$ elevado, $TN$ reduzido) | Diagnóstico médico, Detecção de fraudes financeiras |
+| **Alta Precisão** | **Limiar Alto** ($\theta \uparrow$)<br>*"Só disparar positivo quando tiver certeza absoluta"* | $TP$ moderado, $FP$ quase zero<br>($FN$ elevado, $TN$ máximo) | Filtros de spam severos, Recomendação de investimentos de alto risco |
 
 ---
 
@@ -247,15 +233,58 @@ O erro de generalização de qualquer algoritmo de [[Aprendizado de Máquina]] p
 
 $$\text{Erro Esperado} = \text{Viés}^2 + \text{Variância} + \sigma^2_{\text{irredutível}}$$
 
-```
-               ERRO TOTAL DE GENERALIZAÇÃO
-                   \                 /
-                    \               /
-          VIÉS ELEVADO\           /VARIÂNCIA ELEVADA
-        (Subajuste /   \         / (Sobreajuste /
-        Underfitting)   \_______/   Overfitting)
-                             |
-                     [COMPLEXIDADE ÓTIMA]
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    y: [11.2, 8.6, 6.8, 5.8, 5.4, 5.8, 6.8, 8.6, 11.0, 14.1]
+    type: scatter
+    mode: lines
+    name: 'Erro Total de Generalização'
+    line:
+      color: '#d62728'
+      width: 3.5
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    y: [10.0, 7.2, 5.0, 3.4, 2.2, 1.4, 0.8, 0.4, 0.2, 0.1]
+    type: scatter
+    mode: lines
+    name: 'Viés² (Alto na Esquerda: Subajuste)'
+    line:
+      color: '#1f77b4'
+      dash: dash
+      width: 2.5
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    y: [0.2, 0.4, 0.8, 1.4, 2.2, 3.4, 5.0, 7.2, 9.8, 13.0]
+    type: scatter
+    mode: lines
+    name: 'Variância (Alta na Direita: Sobreajuste)'
+    line:
+      color: '#ff7f0e'
+      dash: dot
+      width: 2.5
+  - x: [1, 10]
+    y: [1.0, 1.0]
+    type: scatter
+    mode: lines
+    name: 'Erro Irredutível (Ruído)'
+    line:
+      color: '#7f7f7f'
+      dash: dashdot
+      width: 1.5
+  - x: [5]
+    y: [5.4]
+    type: scatter
+    mode: markers
+    name: 'Ponto Ótimo de Complexidade'
+    marker:
+      color: '#2ca02c'
+      size: 11
+layout:
+  title: 'Dilema Viés versus Variância (Bias-Variance Tradeoff)'
+  xaxis:
+    title: 'Complexidade do Modelo (Graus de Liberdade / Flexibilidade)'
+  yaxis:
+    title: 'Erro Esperado'
+  hovermode: 'closest'
 ```
 
 - **Subajuste (*Underfitting* — Alto Viés)**:
