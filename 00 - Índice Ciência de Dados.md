@@ -94,14 +94,16 @@ flowchart TD
 
 ### 📊 5. Avaliação de Modelos e Diagnóstico
 - **[[Métricas de Avaliação de Modelos]]**  
-  *Metodologia científica de avaliação e validação cruzada; A **Matriz de Confusão** completa e a definição dos quatro quadrantes: Verdadeiro Positivo ($TP$), Falso Positivo ($FP$ — Erro Tipo I), Verdadeiro Negativo ($TN$) e Falso Negativo ($FN$ — Erro Tipo II); Definição matemática e interpretação de negócio de todas as métricas:*
-  - *[[Acurácia]] ($Acc = \frac{TP + TN}{\text{Total}}$) e o Paradoxo da Acurácia em classes desbalanceadas;*
-  - *[[Acurácia|Acurácia Balanceada]] ($Acc_B = \frac{\text{TPR} + \text{TNR}}{2}$);*
-  - *[[Recall|Sensibilidade / Recall / TPR]] ($\frac{TP}{TP + FN}$);*
-  - *[[Métricas de Avaliação de Modelos#24-especificidade--taxa-de-verdadeiros-negativos-tnr|Especificidade / TNR]] ($\frac{TN}{TN + FP}$) e Taxa de Falsos Positivos ($FPR = 1 - \text{Especificidade}$);*
-  - *[[Precisão|Precisão / PPV]] ($\frac{TP}{TP + FP}$);*
-  - *[[F1-Score]] ($2 \cdot \frac{\text{Precisão} \cdot \text{Recall}}{\text{Precisão} + \text{Recall}}$, justificativa da média harmônica);*
-  *O dilema e trade-off entre Precisão e Recall; A **[[Curva ROC]]** e a métrica de síntese **[[AUC|Área sob a Curva (AUC)]]** com gráfico interativo embutido; Métricas para modelos de regressão ($MAE$, $MSE$, $RMSE$, $R^2$); O dilema Viés versus Variância (*Bias-Variance Tradeoff*) e a detecção de Underfitting e Overfitting; Implementação prática com `caret` e `ROCR` em R.*
+  *Guia metodológico integrado sobre validação preditiva, validação cruzada, o trade-off entre viés e variância, métricas para problemas contínuos (MAE, MSE, RMSE, R²) e problemas de classificação.*
+- **Páginas Aprofundadas de Métricas e Diagnóstico de Classificação:**
+  - **[[Matriz de Confusão]]**: *Tabela de contingência fundamental confrontando classes reais versus preditas; Verdadeiro Positivo ($TP$), Falso Positivo ($FP$ — Erro Tipo I), Verdadeiro Negativo ($TN$) e Falso Negativo ($FN$ — Erro Tipo II); Aplicação em problemas binários e multiclasse; Heatmap interativo.*
+  - **[[Acurácia]]**: *Proporção global de acertos ($Acc = \frac{TP + TN}{\text{Total}}$); O perigoso Paradoxo da Acurácia em classes desbalanceadas; [[Acurácia|Acurácia Balanceada]] ($Acc_B = \frac{\text{TPR} + \text{TNR}}{2}$).*
+  - **[[Precisão]]**: *Valor Preditivo Positivo ($PPV = \frac{TP}{TP + FP}$); Confiabilidade dos disparos afirmativos do modelo; Cenários onde Falsos Positivos têm custo proibitivo (filtros de spam, investimentos de alto risco).*
+  - **[[Recall]]**: *Sensibilidade / Revocação / Taxa de Verdadeiros Positivos ($TPR = \frac{TP}{TP + FN}$); Capacidade de cobertura e captura da classe de interesse; Cenários onde Falsos Negativos são críticos (diagnóstico médico, detecção de fraudes).*
+  - **[[Especificidade]]**: *Taxa de Verdadeiros Negativos ($TNR = \frac{TN}{TN + FP}$); Taxa de Falsos Positivos ($FPR = 1 - \text{Especificidade}$); Proteção contra alarmes falsos.*
+  - **[[F1-Score]]**: *Média harmônica balanceando Precisão e Recall ($F_1 = \frac{2TP}{2TP + FP + FN}$); Justificativa da média harmônica sobre a aritmética; A família paramétrica $F_\beta$-Score ($F_2$ e $F_{0,5}$).*
+  - **[[Curva ROC]]**: *Curva Característica de Operação do Receptor; Gráfico dinâmico do trade-off entre TPR ($Recall$) e FPR ($1 - \text{Especificidade}$) através de todos os pontos de corte $\theta \in [0, 1]$; Gráfico interativo em Plotly.*
+  - **[[AUC]]**: *Área sob a Curva ROC; Métrica de síntese escalar; Interpretação probabilística de concordância ($P(\hat{p}_{\text{positivo}} > \hat{p}_{\text{negativo}})$); Invariância de limiar e escala.*
 
 ---
 
