@@ -213,13 +213,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "10ffb74a70a141bf",
+  "active": "96ac409316e2a579",
   "lastOpenFiles": [
+    "Matriz de Confusão.md",
+    "F1-Score.md",
+    "Recall.md",
+    "Precisão.md",
+    "Visualização de Dados com Plotly.md",
+    "Business Intelligence e Análise de Negócios.md",
+    "00 - Índice Ciência de Dados.md",
     "check_links.py",
     "Acurácia.md",
-    "00 - Índice Ciência de Dados.md",
-    "Business Intelligence e Análise de Negócios.md",
-    "Visualização de Dados com Plotly.md",
     "Métricas de Avaliação de Modelos.md",
     "Árvores de Decisão.md",
     "Regressão Logística.md",
@@ -238,7 +242,6 @@
     "Material/CAP 3 - Análise de dados/wine_quality.pdf",
     "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.t3oEIiJV.ipynb.part",
     "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.ipynb",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality.ALu7sGue.ipynb.part",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality.ipynb"
+    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality.ALu7sGue.ipynb.part"
   ]
 }
