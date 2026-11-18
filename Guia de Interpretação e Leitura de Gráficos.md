@@ -576,6 +576,232 @@ layout:
 
 ---
 
+## 🚀 7. Gráfico de Erro Absoluto Médio (EAM / MAE) versus Potência Polinomial (Complexidade do Modelo)
+
+Este é um dos **gráficos mais importantes e cobrados nas aulas e avaliações práticas de regressão e aprendizado de máquina supervisionado**. Ele sintetiza em uma única visualização o impacto simultâneo da **complexidade polinomial (graus de potência)**, da inclusão de **variáveis categóricas codificadas via One-Hot Encoding** e do dilema entre **Underfitting e Overfitting**.
+
+---
+
+### 7.1. Anatomia dos Eixos e Elementos do Gráfico
+
+* **Eixo Horizontal ($X$) — Potência das Variáveis do Modelo ($1, 2, 3 \dots 9$)**:
+  * Representa o grau máximo dos termos polinomiais adicionados cumulativamente a todas as variáveis explicativas contínuas:
+    * **Potência 1**: Modelo linear padrão de 1º grau: $\hat{Y} = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k$.
+    * **Potência 2**: Adiciona termos quadráticos: $+ \beta_{1,2} X_1^2 + \dots + \beta_{k,2} X_k^2$.
+    * **Potência 3**: Adiciona termos cúbicos: $+ \beta_{1,3} X_1^3 + \dots + \beta_{k,3} X_k^3$.
+    * ... até a **Potência 9**, que inclui potências $X^9$ para cada preditor numérico!
+* **Eixo Vertical ($Y$) — Erro Absoluto Médio ($EAM$ / $MAE \times 1.000$)**:
+  * Mede a magnitude média dos desvios absolutos entre o preço previsto pelo modelo ($\hat{Y}$) e o preço real observado ($Y$):
+    $$EAM = \frac{1}{n} \sum_{i=1}^{n} |Y_i - \hat{Y}_i|$$
+  * Ao contrário do $MSE$ (que eleva os erros ao quadrado), o $EAM$ está na **mesma unidade monetária dos dados reais** (ex.: milhares de reais ou dólares de erro médio).
+* **Linha Horizontal de Linha de Base (*Baseline*)**:
+  * Representa o erro obtido por um modelo ingênuo trivial (por exemplo, prever simplesmente a mediana ou média geral para todos os casos). Qualquer modelo treinado aceitável deve operar obrigatoriamente **abaixo da linha de baseline**.
+
+---
+
+### 7.2. Explicação Visual do One-Hot Encoding (OHE)
+
+Muitas bases de dados possuem variáveis categóricas qualitativas (texto). Algoritmos de regressão matemática não conseguem multiplicar palavras como `"LITORAL"` ou `"INTERIOR"` por coeficientes $\beta$. O **One-Hot Encoding (OHE)** é a técnica que converte cada categoria em uma coluna binária indicadora ($0$ ou $1$).
+
+#### Exemplo Visual: Variável Categórica `prox_oceano`
+Considere que um imóvel pode estar em uma de 5 localizações: `[1H OCEANO, BAÍA, INTERIOR, LITORAL, ILHA]`.
+
+```mermaid
+flowchart TD
+    CAT["Variável Categórica Bruta:<br><b>prox_oceano</b><br><i>['1H OCEANO', 'BAÍA', 'INTERIOR', 'LITORAL']</i>"]
+    
+    CAT -->|One-Hot Encoding| OHE["<b>4 Colunas Binárias (Dummies)</b><br>k - 1 para evitar a armadilha da dummy"]
+    
+    OHE --> D1["<b>oc_1hora</b> ∈ {0, 1}"]
+    OHE --> D2["<b>oc_baia</b> ∈ {0, 1}"]
+    OHE --> D3["<b>oc_interior</b> ∈ {0, 1}"]
+    OHE --> D4["<b>oc_litoral</b> ∈ {0, 1}"]
+```
+
+| Imóvel | `prox_oceano` (Original) | `oc_1hora` | `oc_baia` | `oc_interior` | `oc_litoral` | *Categoria de Referência (ILHA)* |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: |
+| Casa 1 | **LITORAL** | $0$ | $0$ | $0$ | **$1$** | $0$ |
+| Casa 2 | **INTERIOR** | $0$ | $0$ | **$1$** | $0$ | $0$ |
+| Casa 3 | **ILHA** *(Referência omitida)* | **$0$** | **$0$** | **$0$** | **$0$** | Toda zero indica a referência! |
+
+> [!IMPORTANT] Por que variáveis One-Hot NÃO são elevadas a potências?
+> Como variáveis dummy assumem apenas os valores discretos $0$ ou $1$, elevá-las a potências superiores é **matematicamente inócuo e redundante**:
+> $$0^2 = 0, \quad 1^2 = 1, \quad 0^3 = 0, \quad 1^3 = 1 \dots 0^9 = 0, \quad 1^9 = 1$$
+> Elevar uma dummy à potência $2$ gera uma coluna perfeitamente idêntica a ela mesma, criando colinearidade perfeita instantânea. Portanto, no código da aula, as variáveis One-Hot entram como preditores lineares fixos na base (`base <- c(...)`), e apenas as variáveis contínuas numéricas sofrem expansão de potência ($X^2, X^3 \dots X^9$).
+
+---
+
+### 7.3. Gráfico 7.1: A Versão de 2 Linhas (Treino vs Validação sem OHE)
+*Contexto: Modelo com apenas variáveis contínuas (latitude, longitude, idade, cômodos, população, renda) com potências de 1 a 9.*
+
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.612, 49.258, 46.730, 46.060, 45.307, 45.141, 44.868, 44.597, 44.570]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (sem OHE)'
+    line:
+      color: '#1f77b4'
+      width: 2.5
+    marker:
+      symbol: 'triangle-up'
+      size: 9
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.747, 49.457, 46.942, 46.155, 45.466, 45.412, 45.732, 45.735, 50.999]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (sem OHE)'
+    line:
+      color: '#2ca02c'
+      width: 2.5
+    marker:
+      symbol: 'square'
+      size: 9
+  - x: [1, 9]
+    y: [50.747, 50.747]
+    type: scatter
+    mode: lines
+    name: 'Baseline (Modelo Ingênuo)'
+    line:
+      color: '#d62728'
+      dash: dash
+      width: 2
+  - x: [6]
+    y: [45.412]
+    type: scatter
+    mode: markers+text
+    name: 'Mínimo de Validação (Potência 6)'
+    text: ['Mínimo (Potência 6)']
+    textposition: 'bottom center'
+    marker:
+      color: '#2ca02c'
+      size: 12
+      symbol: 'diamond'
+layout:
+  title: 'Erro Absoluto Médio vs Potência Polinomial (Features Contínuas)'
+  xaxis:
+    title: 'Potência das Variáveis do Modelo (Grau Polinomial)'
+    tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  yaxis:
+    title: 'Erro Absoluto Médio (× 1000)'
+  hovermode: 'closest'
+```
+
+#### Interpretação das 2 Linhas:
+1. **Potência 1 (Subajuste / Underfitting)**:
+   * Ambas as curvas iniciam em patamares altos ($EAM \approx 50.600$ a $50.750$). O modelo linear simples é rígido demais e não captura a geografia não linear dos preços.
+2. **Potências 2 a 6 (Aprendizado Genuíno)**:
+   * Conforme elevamos as variáveis às potências $2, 3, 4, 5$ e $6$, tanto o erro de treino quanto o de validação **caem progressivamente e em paralelo**.
+3. **Potência 6 (Ponto Ótimo sem OHE)**:
+   * O erro de validação atinge seu ponto mais baixo ($45.412$).
+4. **Potências 7 a 9 (Sobreajuste / Overfitting)**:
+   * O erro de treino continua caindo lentamente (atingindo $44.570$ na 9ª potência), mas o erro de validação **passa a subir e descola bruscamente**, atingindo quase $51.000$ na potência 9 (pior até que o baseline!). O modelo decorou o ruído do treino.
+
+---
+
+### 7.4. Gráfico 7.2: A Versão Completa de 4 Linhas (com e sem One-Hot Encoding)
+*Contexto: Comparativo definitivo do curso — Features Contínuas vs Inclusão das Dummies de Localização.*
+
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.612, 49.258, 46.730, 46.060, 45.307, 45.141, 44.868, 44.597, 44.570]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (sem OHE)'
+    line:
+      color: '#1f77b4'
+      width: 2
+    marker:
+      symbol: 'triangle-up'
+      size: 8
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.747, 49.457, 46.942, 46.155, 45.466, 45.412, 45.732, 45.735, 50.999]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (sem OHE)'
+    line:
+      color: '#2ca02c'
+      width: 2
+    marker:
+      symbol: 'square'
+      size: 8
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [49.646, 48.652, 46.104, 45.292, 44.620, 44.477, 44.204, 44.008, 43.962]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (com One-Hot OHE)'
+    line:
+      color: '#1f77b4'
+      dash: dash
+      width: 2.5
+    marker:
+      symbol: 'triangle-up'
+      size: 9
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [49.503, 48.697, 45.905, 45.091, 44.591, 44.559, 44.747, 45.337, 50.452]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (com One-Hot OHE)'
+    line:
+      color: '#2ca02c'
+      dash: dash
+      width: 3
+    marker:
+      symbol: 'square'
+      size: 9
+  - x: [1, 9]
+    y: [50.747, 50.747]
+    type: scatter
+    mode: lines
+    name: 'Baseline'
+    line:
+      color: '#d62728'
+      dash: dot
+      width: 2
+  - x: [5]
+    y: [44.559]
+    type: scatter
+    mode: markers+text
+    name: 'Melhor Modelo Global (Potência 5 com OHE)'
+    text: ['MELHOR MODELO (Potência 5 + OHE)']
+    textposition: 'bottom center'
+    marker:
+      color: '#d62728'
+      size: 14
+      symbol: 'star'
+layout:
+  title: 'Comparativo de Modelos: EAM vs Potência com e sem One-Hot Encoding'
+  xaxis:
+    title: 'Potência das Variáveis do Modelo'
+    tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  yaxis:
+    title: 'Erro Absoluto Médio (× 1000)'
+  hovermode: 'closest'
+```
+
+---
+
+### 7.5. Como Interpretar este Gráfico na Prova (As 4 Perguntas Cruciais)
+
+#### 1. Por que as linhas com One-Hot Encoding estão sistematicamente ABAIXO das linhas normais?
+* **Interpretação**: As curvas tracejadas (com OHE) operam em patamares de erro substancialmente inferiores porque a inclusão das variáveis de localização geográfica (`prox_oceano`) injetou **informação discriminatória valiosa** que as variáveis contínuas sozinhas não conseguiam capturar. Isso comprova que a proximidade com o oceano é um preditor determinante para o preço de imóveis.
+
+#### 2. O que representa a trajetória das duas curvas de Treino versus Validação?
+* Ambas as curvas começam altas na **Potência 1** $\implies$ **Subajuste (*Underfitting*)**.
+* Ambas decrescem à medida que a potência aumenta até a **Potência 5** $\implies$ **Zona de Generalização Eficaz**.
+* A partir da **Potência 6 em diante**, o erro de treino continua caindo, mas o erro de validação descola e sobe em disparada $\implies$ **Sobreajuste (*Overfitting*)**.
+
+#### 3. Qual é rigorosamente o MELHOR MODELO para colocar em produção e por quê?
+* **Resposta de Prova**: O melhor modelo é a **5ª Potência com One-Hot Encoding**.
+* **Justificativa**: É exatamente na 5ª potência com OHE que o **Erro Absoluto Médio no conjunto de validação atinge o seu menor valor absoluto ($44.559$)**. A partir da 6ª potência, o modelo passa a sofrer de sobreajuste, tornando-se especializado demais nos dados de treino e perdendo capacidade preditiva em novos dados.
+
+#### 4. O que aconteceria se a empresa escolhesse o modelo de 9ª Potência?
+* A empresa cometeria um grave erro técnico. Embora o modelo de 9ª potência apresente o menor erro aparente no treino ($43.962$), ele teria um desempenho desastroso no mundo real, com erro de validação superior a $50.450$, errando muito mais as previsões financeiras do que o modelo de 5ª potência.
+
+---
+
 ## 📋 Resumo Operacional: "Se o Gráfico Mostrar X, Faça Y no Modelo"
 
 | Gráfico | Padrão Visual Observado | Diagnóstico Técnico | Ação Recomendada na Modelagem |

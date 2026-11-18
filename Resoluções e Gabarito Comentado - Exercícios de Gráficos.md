@@ -410,3 +410,57 @@ Sob a regra de decisão padrão: $\hat{Y} = 1$ se $p \ge 0,50$ (ou $p > 0,50$ co
   1. **Simplificar e Regularizar o Modelo**: Aplicar penalização (Lasso ou Ridge) ou podar a complexidade do algoritmo para fechar a lacuna de erro entre treino e teste.
   2. **Inserir Termos Não Lineares**: Adicionar termos polinomiais de 2º grau ($X^2$) ou transformar variáveis com $\ln(X)$ para eliminar o padrão parabólico dos resíduos.
   3. **Expurgar Preditores Redundantes**: Remover uma das duas variáveis altamente correlacionadas ($r = 0,94$) ou combiná-las via Análise de Componentes Principais (PCA) antes do ajuste final.
+
+---
+
+## 🟣 Bloco 4: Seção Especial — Complexidade Polinomial, Erro Absoluto Médio e One-Hot Encoding (Exercícios 46 a 51)
+
+### Resolução 46
+1. **Comportamento na Potência 1 (Subajuste / Underfitting)**:
+   * Ambas as curvas (treino e validação) iniciam em patamares muito elevados de erro ($EAM \approx 50.600$ a $50.750$), posicionadas lado a lado. Isso diagnostica o **Subajuste (*Underfitting*)**. Um modelo puramente linear de 1º grau impõe um hiperplano hiper-rígido que não tem flexibilidade para modelar a topografia geográfica e a curvatura real dos preços imobiliários.
+2. **Ponto Ótimo sem Variáveis Categóricas**:
+   * O erro de validação atinge seu ponto mais baixo absoluto na **Potência 6**, registrando $EAM_{\text{valid}} = 45.412$.
+3. **Comportamento a partir da Potência 7 até a 9**:
+   * Observa-se a manifestação clássica do **Sobreajuste (*Overfitting*) / Efeito Tesoura**: o erro no conjunto de treinamento continua caindo lentamente (de $44.868$ até $44.570$ na 9ª potência), mas o erro no conjunto de validação **passa a subir e descola bruscamente**, atingindo quase $51.000$ ($50.999$) na potência 9. O modelo passou a memorizar ruídos amostrais específicos do treino, perdendo a capacidade de generalizar para dados novos.
+
+---
+
+### Resolução 47
+* **Por que as Linhas com One-Hot Encoding estão Sistematicamente Abaixo**:
+  * As curvas tracejadas (com OHE) operam em patamares de erro substancialmente inferiores em todas as potências porque a inclusão das variáveis dummy indicadoras de localização (`prox_oceano`: `oc_1hora`, `oc_baia`, `oc_interior`, `oc_litoral`) injetou **informação discriminatória espacial qualitativa indispensável**.
+  * Variáveis contínuas métricas isoladas (como área construída ou número de cômodos) são incapazes de capturar o valor de localização: um imóvel idêntico situado de frente para a praia (*litoral*) vale dramaticamente mais do que no *interior*. Ao incorporar as dummies de localização via One-Hot Encoding, o modelo reduz o erro absoluto médio de ponta a ponta em todos os graus polinomiais.
+
+---
+
+### Resolução 48
+1. **Diagnóstico da Potência 1 (Alto Viés / Underfitting)**:
+   * O modelo de 1ª potência peca por excesso de rigidez matemática (alto viés). O indicador visual é que **tanto o erro de treino quanto o erro de validação são muito altos e colados**, demonstrando que o algoritmo não conseguiu capturar nem mesmo a estrutura interna do conjunto de treino.
+2. **Diagnóstico da Potência 9 (Alta Variância / Overfitting)**:
+   * O modelo de 9ª potência possui excesso desmedido de flexibilidade e graus de liberdade devido à inclusão de dezenas de termos elevados a potências astronômicas ($X^9$). O indicador visual no gráfico é o **afastamento divergente entre as linhas**: o erro de treino atinge o menor patamar de toda a análise ($44.570$), enquanto o erro de validação explode para o pior patamar ($50.999$), abrindo um hiato de mais de $6.400$ pontos de erro entre treino e teste.
+
+---
+
+### Resolução 49
+* **Fundamentação Técnica para Rejeitar a 9ª Potência e Escolher a 5ª Potência com OHE**:
+  * A premissa norteadora da Ciência de Dados dita que **a seleção de modelos JAMAIS deve ser baseada no menor erro no conjunto de treinamento**. O erro de treino mede apenas a capacidade do algoritmo de "decorar" os dados já vistos.
+  * A verdadeira capacidade preditiva no mundo real é apurada exclusivamente sobre o **conjunto de validação/teste**.
+  * No gráfico de validação com OHE, o erro atinge seu **mínimo global na 5ª Potência ($EAM = 44.559$)**. A partir da 6ª potência, o erro de validação passa a subir ($44.747 \to 45.337 \to 50.452$). Se a empresa escolhesse o modelo de 9ª potência, teria previsões financeiras muito piores na prática. Portanto, o modelo da **5ª Potência com One-Hot Encoding** é a única escolha técnica e estatisticamente correta.
+
+---
+
+### Resolução 50
+1. **Quantidade de Dummies e Regra Fundamental ($k - 1$)**:
+   * Para uma variável categórica contendo $k = 5$ classes, são criadas exatamente **$k - 1 = 4$ colunas binárias** no modelo com intercepto (`oc_1hora`, `oc_baia`, `oc_interior`, `oc_litoral`). A quinta categoria (`ILHA`) é omitida intencionalmente para servir como a **categoria base de referência**, evitando a redundância matemática e a singularidade da matriz de dados (a **Armadilha da Dummy**).
+2. **Por que Variáveis Dummy NÃO são Elevadas a Potências**:
+   * Uma variável dummy binária só pode assumir os valores discretos $0$ ou $1$.
+   * Pela álgebra elementar:
+     $$0^p = 0 \quad \text{e} \quad 1^p = 1, \quad \forall p \in \mathbb{N}$$
+   * Elevar uma dummy ao quadrado ($D^2$), ao cubo ($D^3$) ou à 9ª potência ($D^9$) gera uma coluna idêntica à coluna original $D$. Tentar incluir $D$ e $D^2$ no mesmo modelo geraria **colinearidade perfeita instantânea ($r = 1,00$)**, inviabilizando a inversão da matriz $(\mathbf{X}^T \mathbf{X})^{-1}$. Por isso, as dummies entram no modelo exclusivamente na sua forma linear fixa de 1º grau.
+
+---
+
+### Resolução 51
+1. **Conceito de Linha de Base (*Baseline*)**:
+   * Representa o erro de um **modelo ingênuo de referência**, que não utiliza preditores nem esforço de aprendizado de máquina — por exemplo, prever simplesmente a mediana ou média geral de preços para todos os distritos da Califórnia ($EAM \approx 50.747$). Todo modelo supervisionado precisa obrigatoriamente operar bem abaixo da linha de baseline para comprovar que adiciona valor analítico real.
+2. **Significado do Ponto de Ruptura na Potência 9**:
+   * Quando o erro de validação da 9ª potência ($50.999$) cruza a linha de baseline para cima, ocorre o colapso total do modelo: a modelagem com termos polinomiais de grau 9 tornou-se **tão ruidosa, instável e distorcida que utilizá-la em novos dados é pior do que simplesmente chutar a média de olhos fechados**! O modelo perdeu completamente qualquer utilidade prática.

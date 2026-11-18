@@ -11,28 +11,26 @@
             "id": "e235392b2b072948",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "Exercícios de Interpretação de Gráficos e Modelos.md",
-                "mode": "source",
-                "source": false
+                "file": "Material/CAP 3 - Análise de dados/03.1_arvore_decisao_teoria.pdf"
               },
-              "icon": "lucide-file",
-              "title": "Exercícios de Interpretação de Gráficos e Modelos"
+              "icon": "lucide-file-text",
+              "title": "03.1_arvore_decisao_teoria"
             }
           },
           {
-            "id": "25af2fe2cecd9c40",
+            "id": "9dcba73d667fbad3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "REVISÃO.md",
+                "file": "Árvore de Decisão - Passo a Passo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "REVISÃO"
+              "title": "Árvore de Decisão - Passo a Passo"
             }
           }
         ],
@@ -98,8 +96,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "9c447f275d38d17c",
@@ -230,43 +227,42 @@
       "obsidian-checklist-plugin:Open Checklist": false
     }
   },
-  "active": "25af2fe2cecd9c40",
+  "active": "9dcba73d667fbad3",
   "lastOpenFiles": [
+    "Material/CAP 3 - Análise de dados/03.1_arvore_decisao_teoria.pdf",
+    "Exercício Resolvido em R - Árvore de Decisão Water Quality.md",
+    "Floresta Aleatória - Guia Completo.md",
+    "Árvore de Decisão - Passo a Passo.md",
     "Exercícios de Interpretação de Gráficos e Modelos.md",
+    "Material/CAP 3 - Análise de dados/04_floresta_aleatoria.zip",
+    "Material/CAP 3 - Análise de dados/04.1_floresta_aleatoria_teoria.pdf",
+    "Material/CAP 3 - Análise de dados/03.r0UY6mOb.2_arvore_decisao_aprendizado.pdf.part",
+    "Material/CAP 3 - Análise de dados/03.2_arvore_decisao_aprendizado.pdf",
+    "Acurácia.md",
+    "Matriz de Confusão.md",
+    "Pré-Processamento e Engenharia de Atributos.md",
+    "minmax.md",
+    "Big Data e Computação Distribuída.md",
+    "Guia de Interpretação e Leitura de Gráficos.md",
+    "Resoluções e Gabarito Comentado - Exercícios de Gráficos.md",
+    "REVISÃO.md",
     "Métricas de Avaliação de Modelos.md",
     "Árvores de Decisão.md",
     "Aprendizado de Máquina.md",
     "Ambiente de Desenvolvimento Jupyter.md",
-    "Acurácia.md",
     "00 - Índice Ciência de Dados.md",
     "Regressão Linear.md",
     "Material/CAP 1 - Conceitos/CID_1.1_Introducao.pdf",
-    "Resoluções e Gabarito Comentado - Exercícios de Gráficos.md",
-    "Guia de Interpretação e Leitura de Gráficos.md",
-    "REVISÃO.md",
     "Fundamentos de Ciência de Dados.md",
-    "Pré-Processamento e Engenharia de Atributos.md",
     "Regressão Logística.md",
     "Entropia.md",
     "Índice Gini.md",
     "Data Frames.md",
     "Especificidade.md",
     "AUC.md",
-    "Curva ROC.md",
-    "Matriz de Confusão.md",
-    "F1-Score.md",
-    "Recall.md",
-    "Precisão.md",
-    "Visualização de Dados com Plotly.md",
-    "Business Intelligence e Análise de Negócios.md",
     "check_links.py",
     "Material/CAP 3 - Análise de dados/CID_Plano_Ensino.pdf",
     "Material/CAP 3 - Análise de dados/CDAD_Plano_Aulas_2026B.pdf",
-    "Material/CAP 3 - Análise de dados/wine_quality.zip",
-    "Material/CAP 3 - Análise de dados/Water_Quality.zip",
-    "Material/CAP 3 - Análise de dados/wine_quality.iM6pr05v.pdf.part",
-    "Material/CAP 3 - Análise de dados/wine_quality.pdf",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.t3oEIiJV.ipynb.part",
-    "Material/CAP 3 - Análise de dados/03_arvore_decisao_ex_water_quality__res.ipynb"
+    "Material/CAP 3 - Análise de dados/wine_quality.zip"
   ]
 }

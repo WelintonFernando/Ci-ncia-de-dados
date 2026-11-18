@@ -1639,7 +1639,243 @@ Redija um diagnóstico técnico sintetizado apontando os **três problemas estru
 
 ---
 
-## 💡 Seção de Dicas (Dicas 01 a 45)
+## 🟣 Bloco 4: Seção Especial — Complexidade Polinomial, Erro Absoluto Médio e One-Hot Encoding (Exercícios 46 a 51)
+
+### Exercício 46: Leitura das Curvas de Erro (EAM) por Potência Polinomial (2 Linhas)
+
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.612, 49.258, 46.730, 46.060, 45.307, 45.141, 44.868, 44.597, 44.570]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (Features Contínuas)'
+    line:
+      color: '#1f77b4'
+      width: 2.5
+    marker:
+      symbol: 'triangle-up'
+      size: 9
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.747, 49.457, 46.942, 46.155, 45.466, 45.412, 45.732, 45.735, 50.999]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (Features Contínuas)'
+    line:
+      color: '#2ca02c'
+      width: 2.5
+    marker:
+      symbol: 'square'
+      size: 9
+  - x: [1, 9]
+    y: [50.747, 50.747]
+    type: scatter
+    mode: lines
+    name: 'Linha Baseline (50.747)'
+    line:
+      color: '#d62728'
+      dash: dash
+  - x: [6]
+    y: [45.412]
+    type: scatter
+    mode: markers+text
+    name: 'Mínimo de Validação (Potência 6)'
+    text: ['Mínimo de Validação (Potência 6)']
+    textposition: 'bottom center'
+    marker:
+      color: '#2ca02c'
+      size: 12
+      symbol: 'diamond'
+layout:
+  title: 'Erro Absoluto Médio vs Potência Polinomial (Features Contínuas)'
+  xaxis:
+    title: 'Potência das Variáveis do Modelo (Grau Polinomial)'
+    tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  yaxis:
+    title: 'Erro Absoluto Médio (× 1000)'
+  hovermode: 'closest'
+```
+
+Considere o gráfico acima exibindo o Erro Absoluto Médio ($EAM$) em função da potência das variáveis contínuas ($1$ a $9$) em dados de preços de imóveis:
+1. O que representa o comportamento das duas curvas na **Potência 1** (onde ambas estão altas e coladas próximas a $50.700$)?
+2. Em qual potência o erro de validação atinge seu ponto ótimo de mínimo sem variáveis categóricas?
+3. O que acontece entre o erro de treino e o de validação a partir da **Potência 7 até a 9**? Qual fenômeno estatístico clássico isso caracteriza?
+
+---
+
+### Exercício 47: Leitura Comparativa das 4 Linhas com One-Hot Encoding
+
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.612, 49.258, 46.730, 46.060, 45.307, 45.141, 44.868, 44.597, 44.570]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (sem OHE)'
+    line:
+      color: '#1f77b4'
+      width: 2
+    marker:
+      symbol: 'triangle-up'
+      size: 7
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [50.747, 49.457, 46.942, 46.155, 45.466, 45.412, 45.732, 45.735, 50.999]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (sem OHE)'
+    line:
+      color: '#2ca02c'
+      width: 2
+    marker:
+      symbol: 'square'
+      size: 7
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [49.646, 48.652, 46.104, 45.292, 44.620, 44.477, 44.204, 44.008, 43.962]
+    type: scatter
+    mode: lines+markers
+    name: 'Treino (com One-Hot OHE)'
+    line:
+      color: '#1f77b4'
+      dash: dash
+      width: 2.5
+    marker:
+      symbol: 'triangle-up'
+      size: 8
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [49.503, 48.697, 45.905, 45.091, 44.591, 44.559, 44.747, 45.337, 50.452]
+    type: scatter
+    mode: lines+markers
+    name: 'Validação (com One-Hot OHE)'
+    line:
+      color: '#2ca02c'
+      dash: dash
+      width: 3
+    marker:
+      symbol: 'square'
+      size: 9
+  - x: [1, 9]
+    y: [50.747, 50.747]
+    type: scatter
+    mode: lines
+    name: 'Baseline'
+    line:
+      color: '#d62728'
+      dash: dot
+layout:
+  title: 'Comparativo de 4 Linhas: EAM vs Potência com e sem One-Hot Encoding'
+  xaxis:
+    title: 'Potência das Variáveis do Modelo'
+    tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  yaxis:
+    title: 'Erro Absoluto Médio (× 1000)'
+  hovermode: 'closest'
+```
+
+Ao analisar o gráfico completo de 4 linhas acima (comparando modelos sem OHE com linhas sólidas versus modelos com OHE em linhas tracejadas):
+* Por que as duas curvas tracejadas (com One-Hot Encoding) posicionam-se **sistematicamente abaixo** das respectivas curvas sólidas em praticamente todas as potências? O que essa separação vertical comprova sobre a relevância das variáveis categóricas de localização?
+
+---
+
+### Exercício 48: Diagnóstico de Underfitting versus Overfitting pelas Potências
+
+```plotly
+data:
+  - x: [1, 5, 9]
+    y: [50.612, 45.307, 44.570]
+    type: scatter
+    mode: markers+lines
+    name: 'Treino'
+    line:
+      color: '#1f77b4'
+      width: 2
+    marker:
+      size: 10
+  - x: [1, 5, 9]
+    y: [50.747, 45.466, 50.999]
+    type: scatter
+    mode: markers+lines
+    name: 'Validação'
+    line:
+      color: '#2ca02c'
+      width: 2
+    marker:
+      size: 10
+  - x: [1, 9]
+    y: [50.747, 50.747]
+    type: scatter
+    mode: lines
+    name: 'Baseline'
+    line:
+      color: '#d62728'
+      dash: dash
+layout:
+  title: 'Foco nos Três Estados Críticos: Potência 1 vs 5 vs 9'
+  xaxis:
+    title: 'Grau de Potência do Modelo'
+    tickvals: [1, 5, 9]
+    ticktext: ['Potência 1 (Underfitting)', 'Potência 5 (Ótimo)', 'Potência 9 (Overfitting)']
+  yaxis:
+    title: 'Erro Absoluto Médio (× 1000)'
+```
+
+Com base no gráfico simplificado acima, que isola as potências $1$, $5$ e $9$:
+1. Explique por que a **Potência 1** é diagnosticada tecnicamente como **Subajuste (*Underfitting*)**.
+2. Explique por que a **Potência 9** é diagnosticada tecnicamente como **Sobreajuste (*Overfitting*)**, analisando a distância vertical de afastamento entre a linha de treino e a de validação.
+
+---
+
+### Exercício 49: Seleção Justificada do Modelo para Implantação em Produção
+
+```plotly
+data:
+  - x: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    y: [49.503, 48.697, 45.905, 45.091, 44.591, 44.559, 44.747, 45.337, 50.452]
+    type: scatter
+    mode: lines+markers
+    name: 'Erro de Validação (com OHE)'
+    line:
+      color: '#2ca02c'
+      width: 3
+  - x: [5]
+    y: [44.559]
+    type: scatter
+    mode: markers+text
+    name: 'Ponto Ótimo: Potência 5'
+    text: ['MELHOR MODELO (Potência 5: EAM = 44.559)']
+    textposition: 'bottom center'
+    marker:
+      color: '#d62728'
+      size: 14
+      symbol: 'star'
+layout:
+  title: 'Curva de Validação com OHE: Localização do Mínimo Global'
+  xaxis:
+    title: 'Potência Polinomial'
+    tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  yaxis:
+    title: 'EAM de Validação (× 1000)'
+```
+
+Um analista júnior de precificação imobiliária observa que na 9ª potência com One-Hot Encoding o erro de **treinamento** é o menor de toda a tabela ($EAM_{\text{treino}} = 43.962$). Por isso, ele propõe colocar o modelo de 9ª potência em produção.
+* Utilizando o gráfico de validação acima, redija a justificativa técnica para rejeitar a proposta do analista e comprovar por que o **modelo com 5ª potência e One-Hot Encoding** deve ser o escolhido.
+
+---
+
+### Exercício 50: Engenharia de Atributos: Por que Dummies não são Elevadas a Potências?
+No script do professor, a variável categórica de localização `prox_oceano` possui 5 categorias: `[1H OCEANO, BAÍA, INTERIOR, LITORAL, ILHA]`.
+1. Quantas colunas binárias (*dummies*) foram criadas para entrar no modelo de regressão com intercepto? Cite a regra que fundamenta essa decisão.
+2. No código, as variáveis contínuas numéricas foram elevadas às potências de 1 a 9 (`I(latitude^2)`, `I(latitude^3)`, etc.), mas as variáveis de One-Hot Encoding foram mantidas na sua forma linear fixa de 1º grau. Explique a razão matemática rigorosa pela qual **variáveis dummy não devem ser elevadas a potências quadráticas ou cúbicas**.
+
+---
+
+### Exercício 51: A Linha de Linha de Base (*Baseline*) e o Ponto de Ruptura
+Nos gráficos de potência polinomial da aula, uma linha horizontal vermelha contínua corta o gráfico na altura de $EAM \approx 50.747$.
+1. O que representa conceitualmente a **linha de baseline** em uma modelagem preditiva supervisionada?
+2. O que significa, em termos de generalização e confiabilidade, quando a curva de validação na **Potência 9** ultrapassa a linha de baseline para cima ($EAM_{\text{valid}} = 50.999$)?
+
+---
+
+## 💡 Seção de Dicas (Dicas 01 a 51)
 
 Use estas orientações para desbloquear seu raciocínio sem recorrer diretamente ao gabarito:
 
@@ -1688,3 +1924,9 @@ Use estas orientações para desbloquear seu raciocínio sem recorrer diretament
 * **Dica 43**: A taxa FPR do gráfico ROC tem no denominador o total de negativos reais ($FP + TN$). Quando $TN$ é gigantesco (um milhão), um aumento expressivo em $FP$ mal altera o FPR, enquanto a Precisão ($TP / (TP + FP)$) desaba.
 * **Dica 44**: Um ponto isolado com alta alavancagem pode ser um erro de entrada de dados ou uma observação vital do mundo real. Ele nunca deve ser deletado sem uma investigação qualitativa do contexto.
 * **Dica 45**: Conecte os quatro sintomas diagnosticados: discrepância gigante de $R^2$ entre treino e teste (overfitting), parábola nos resíduos (não linearidade) e correlação $0,94$ entre preditores (multicolinearidade).
+* **Dica 46**: Na potência 1, o modelo só traça uma reta linear hiper-rígida, errando feio tanto no treino quanto na validação. Observe em qual potência o erro de validação para de cair e começa a subir.
+* **Dica 47**: As variáveis contínuas medem dimensões métricas (área, cômodos), mas ignoram a localização espacial. A proximidade com o oceano explica uma fatia enorme da variância do preço imobiliário, empurrando as curvas de erro para baixo.
+* **Dica 48**: O subajuste peca por falta de flexibilidade (ambos os erros altos). O sobreajuste é denunciado pelo "efeito tesoura": o treino continua caindo enquanto a validação explode para cima, abrindo um grande vão entre as linhas.
+* **Dica 49**: Em modelos preditivos, o critério de escolha NUNCA é o menor erro de treino (que apenas mede memorização), mas sim o ponto onde o erro na amostra de validação atinge seu ponto mais baixo antes de começar a sobreajustar.
+* **Dica 50**: Para $k$ categorias, precisamos de $k - 1$ colunas dummy para que a categoria omitida seja o referencial base. Lembre-se de que $0^2=0$ e $1^2=1$: elevar uma dummy a qualquer potência resulta exatamente nela mesma!
+* **Dica 51**: A linha de baseline é o chute ingênuo da média/mediana sem modelo nenhum. Se um modelo complexo de 9ª potência fica pior do que o baseline, ele se tornou tão instável e ruidoso que chutar a média é mais seguro.
